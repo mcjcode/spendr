@@ -11,7 +11,7 @@ def normal(mu,sigma):
         yield np.random.normal()*sigma + mu
 
 
-def garch11(mu,alpha,beta,sigma2):
+def garch11(mu, alpha, beta, sigma2):
     while True:
         e = np.random.normal()*np.sqrt(sigma2)
         yield e + mu

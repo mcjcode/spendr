@@ -1,0 +1,144 @@
+Table Name:,"SSA 1990 – Female, ANB"
+Table Identity:,553
+Provider Domain:,soa.org
+Provider Name:,Roger Scott Lumsden
+Table Reference:,"U.S. Department of Health and Human Services, “Life Tables for the United States Social Security Area 1900-2080 - Actuarial Study No. 120”, Social Security Administration Office of the Actuary (Baltimore, 2005) p. 53-55. SSA Pub. No. 11-11536. Accessed: March, 2013 from www.socialsecurity.gov/oact/NOTES/pdf_studies/study120.pdf, p. 61-63"
+Content Type:,Population Mortality
+Table Description:,Social Security Area (SSA) Period Life Table for the Calendar Year 1990 – Female. Basis: Age Nearest Birthday. Minimum Age: 0. Maximum Age: 119
+EffDate:,
+Comments:,"Study Data: Based on historical and projected mortality in the United States. Projected mortality is that used in estimating the future costs for the Old-Age, Survivors, and Disability Insurance (OASDI) program included in the 2005 Report of the OASDI Board of Trustees to Congress. Social Security Area (SSA) tables differ from official tables published in conjunction with the U.S. decennial census. Annual tabulations of numbers of deaths by age and sex are made by the National Center for Health Statistics (NCHS) based on information provided by the states published in “Vital Statistics of the United States”. Annual estimates of the U.S. resident population by single year of age and sex are made by the Bureau of the Census and published in “Current Population Reports”. Errors of undercounting and misclassification are considered together as a net undercount. For the period 1968-2001, data was supplemented by records of the Medicare program. Methodology: For ages 0-4, probabilities of death were calculated from monthly tabulations of births and deaths and by utilizing population central death rates. For ages 5-95, data was grouped in 5-year age bands which were  then interpolated by applying Beers 4th degree osculatory formula to natural logs of complements of quinquennial qx's. The process was then iterated until 5-year expected deaths reproduced actual. For ages 95 and over, mortality for men assumed to increase at 5% per year and females at 6%; females then set equal to male rates at age 116 and over. NOTE: an earlier generation of this table used values from Report #107, published in 1992, that were estimates for calendar year 1990. This table now reflects the data from Report #120, published in 2005, based on more accurate population data for calendar year 1990. Data Transcription Errors: None. Data Certified: 03/2013"
+Keywords:,"Aggregate,Population mortality,United States of America"
+
+Table # ,1
+Table Description:,Social Security Area (SSA) Period Life Table for the Calendar Year 1990 – Female. Basis: Age Nearest Birthday. Minimum Age: 0. Maximum Age: 119
+Nation:,United States of America
+Scaling Factor:,0
+Data Type:,Floating Point
+"Row, Column (if applicable)->id:",Age
+"Row, Column (if applicable)->ScaleType:",Age
+"Row, Column (if applicable)->AxisName:",Age
+"Row, Column (if applicable)->MinScaleValue:",0
+"Row, Column (if applicable)->MaxScaleValue:",119
+"Row, Column (if applicable)->Increment:",1
+
+Row\Column,1
+0,0.00815
+1,0.00065
+2,0.00038
+3,0.00030
+4,0.00025
+5,0.00022
+6,0.00020
+7,0.00018
+8,0.00017
+9,0.00016
+10,0.00015
+11,0.00016
+12,0.00018
+13,0.00023
+14,0.00029
+15,0.00037
+16,0.00044
+17,0.00049
+18,0.00051
+19,0.00051
+20,0.00050
+21,0.00050
+22,0.00050
+23,0.00052
+24,0.00055
+25,0.00058
+26,0.00061
+27,0.00064
+28,0.00067
+29,0.00071
+30,0.00075
+31,0.00079
+32,0.00084
+33,0.00089
+34,0.00094
+35,0.00100
+36,0.00107
+37,0.00114
+38,0.00122
+39,0.00129
+40,0.00138
+41,0.00148
+42,0.00161
+43,0.00177
+44,0.00196
+45,0.00218
+46,0.00241
+47,0.00266
+48,0.00294
+49,0.00323
+50,0.00356
+51,0.00391
+52,0.00430
+53,0.00471
+54,0.00514
+55,0.00562
+56,0.00614
+57,0.00673
+58,0.00738
+59,0.00810
+60,0.00891
+61,0.00977
+62,0.01063
+63,0.01149
+64,0.01238
+65,0.01336
+66,0.01448
+67,0.01571
+68,0.01708
+69,0.01860
+70,0.02032
+71,0.02224
+72,0.02431
+73,0.02652
+74,0.02894
+75,0.03170
+76,0.03483
+77,0.03826
+78,0.04197
+79,0.04607
+80,0.05072
+81,0.05599
+82,0.06185
+83,0.06833
+84,0.07551
+85,0.08348
+86,0.09231
+87,0.10207
+88,0.11278
+89,0.12448
+90,0.13718
+91,0.15087
+92,0.16556
+93,0.18122
+94,0.19785
+95,0.21475
+96,0.23172
+97,0.24857
+98,0.26506
+99,0.28097
+100,0.29782
+101,0.31569
+102,0.33463
+103,0.35471
+104,0.37599
+105,0.39855
+106,0.42247
+107,0.44782
+108,0.47468
+109,0.50317
+110,0.53336
+111,0.56536
+112,0.59928
+113,0.63523
+114,0.67335
+115,0.71375
+116,0.75345
+117,0.79112
+118,0.83067
+119,0.87221

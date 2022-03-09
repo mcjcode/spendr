@@ -1,0 +1,15 @@
+seed: 123456789
+nsims: 100
+retirement_age: 1000 ##70
+year: 2022
+ages: [54, 54]
+genders: [M, F]
+assets_pretax:  [1000000, 1000000]
+assets_posttax: [      0,       0]
+assets_basis:   [      0,       0]
+
+ret_gen: returns.normal(0.0, 0.0)
+allocation_policy: policies.no_allocation_policy()
+spending_policy: policies.const_spending_policy(0.0) #150_000.0)
+withdrawal_policy: policies.basic_withdrawal_policy()
+
