@@ -49,7 +49,8 @@ def path(ret_gen,
          assets_posttax,
          assets_basis,
          ule,
-         retirement_age):
+         retirement_age,
+         insurance_amts0):
     ages = list(ages)
     assets_pretax = list(assets_pretax)
     assets_posttax = list(assets_posttax)
@@ -61,15 +62,13 @@ def path(ret_gen,
 
     results = []
 
-    # I pay 1279 quarterly for 750,000 in life insurance.
-    # according to the 552 table, this would be consistent
-    # with the 0.00682 mortality rate for 51 year old male.
-    insurance_amts     = [750_000, 0]
-    
     my_ssn = 0.0
+    carry_forward_loss = 0
     #
     # keep going until they are all dead or run out of money
     #
+    insurance_amts = list(insurance_amts0)
+
     while any(alive) and tot_assets > 0:
         surviving_ages = [age for (age, a) in zip(ages, alive) if a]
         surviving_insurance_amts = [amt for (amt, a) in zip(insurance_amts, alive)]
@@ -120,10 +119,18 @@ def path(ret_gen,
             insurance_amts[0] = 0
         else:
             ins_payout = 0
-            
+
+        if taxable_income < 0:
+            carry_forward_loss += taxable_income
+            taxable_income = 0
+        else:
+            applied_carry_forward = min(taxable_income, -carry_forward_loss)
+            taxable_income -= applied_carry_forward
+            carry_forward_loss += applied_carry_forward
+
         ret = next(ret_gen)
         results.append([year] + ages + alive + assets_pretax + assets_posttax + assets_basis +
-                       [spending_amt, withdrawal, taxable_income, ret, my_ssn, ins_payout, rmd_taxable_income])
+                       [spending_amt, withdrawal, taxable_income, ret, my_ssn, ins_payout, rmd_taxable_income, carry_forward_loss])
 
         assets_pretax[0] -= pre[0]
         assets_pretax[1] -= pre[1]
@@ -188,8 +195,8 @@ def path(ret_gen,
     assets_posttax = [np.floor(xx) for xx in assets_posttax]
     assets_basis = [np.floor(xx) for xx in assets_posttax]
 
-    results.append([year] + ages + alive + assets_pretax + assets_posttax + assets_basis +
-                   [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+    results.append([year] + ages + alive + assets_pretax + assets_posttax + assets_basis + [0.0]*8)
+
     return results
 
 
@@ -202,24 +209,26 @@ def test_yaml(config_fn):
 
     with open(config_fn, 'r') as stream:
         dictionaries = yaml.load_all(stream, yaml.Loader)
-        dictionary = next(dictionaries)
+        params = next(dictionaries)
 
-    for key, value in dictionary.items():
+    for key, value in params.items():
         print(key + " : " + str(value))
 
-    nsims = dictionary['nsims']
-    retirement_age = dictionary['retirement_age']
-    year = dictionary['year']
-    ages = dictionary['ages']
-    genders = dictionary['genders']
-    assets_pretax = dictionary['assets_pretax']
-    assets_posttax = dictionary['assets_posttax']
-    assets_basis = dictionary['assets_basis']
-    ret_gen = eval(dictionary['ret_gen'])
-    allocation_policy = eval(dictionary['allocation_policy'])
-    spending_policy = eval(dictionary['spending_policy'])
-    withdrawal_policy = eval(dictionary['withdrawal_policy'])
-    seed = dictionary['seed']
+    nsims = params['nsims']
+    retirement_age = params['retirement_age']
+    year = params['year']
+    ages = params['ages']
+    genders = params['genders']
+    assets_pretax = params['assets_pretax']
+    assets_posttax = params['assets_posttax']
+    assets_basis = params['assets_basis']
+    ret_gen = eval(params['ret_gen'])
+    allocation_policy = eval(params['allocation_policy'])
+    spending_policy = eval(params['spending_policy'])
+    withdrawal_policy = eval(params['withdrawal_policy'])
+    insurance_amts = params['insurance_amts']
+
+    seed = params['seed']
     
     np.random.seed(seed)
     
@@ -240,15 +249,15 @@ def test_yaml(config_fn):
                        assets_posttax,
                        assets_basis,
                        ule,
-                       retirement_age)
+                       retirement_age,
+                       insurance_amts)
         sims += [[ii + 1] + rec for rec in results]
 
-    colnames = 'Sim Year A1 A2 Surv1 Surv2 Cash401k Stock401k PstTaxCash PstTaxStok CashBasis StockBasis Spend Withdraw Taxable Return SSN Ins RMD'.split()
+    colnames = 'Sim Year A1 A2 Surv1 Surv2 Cash401k Stock401k PstTaxCash PstTaxStok CashBasis StockBasis Spend Withdraw Taxable Return SSN Ins RMD CarryFwd'.split()
     data = {k: v for (k, v) in zip(colnames, list(zip(*sims)))}
     df = pd.DataFrame(data)
     df['TotAssets'] = df.Cash401k + df.Stock401k + df.PstTaxCash + df.PstTaxStok
     df['Last'] = (df.TotAssets == 0) | (~(df.Surv1 | df.Surv2))
-    ##del df['PstTxBasis']
     df['CashAlloc'] = (df.Cash401k + df.PstTaxCash) / df.TotAssets
     df.Return = 100 * df.Return
     df['Taxes'] = df.Withdraw - df.Spend
