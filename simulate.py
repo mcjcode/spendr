@@ -81,6 +81,10 @@ def path(ret_gen,
                                        assets_posttax,
                                        assets_basis)
 
+        
+        if max(ages[0], ages[1]) >= retirement_age:
+            my_ssn = ssn_income
+
         if sum(alive) == 2:
             tot_tax_f = tot_tax_mfj
             post_from_pre = post_from_pre_mfj
@@ -111,9 +115,6 @@ def path(ret_gen,
         taxable_income += (post[1] - (assets_basis[1] - basis[1]))
         taxable_income += rmd_taxable_income
 
-        if max(ages[0], ages[1]) == retirement_age:
-            my_ssn = ssn_income
-
         if not alive[0]:
             ins_payout = insurance_amts[0]
             insurance_amts[0] = 0
@@ -129,6 +130,7 @@ def path(ret_gen,
             carry_forward_loss += applied_carry_forward
 
         ret = next(ret_gen)
+        
         results.append([year] + ages + alive + assets_pretax + assets_posttax + assets_basis +
                        [spending_amt, withdrawal, taxable_income, ret, my_ssn, ins_payout, rmd_taxable_income, carry_forward_loss])
 

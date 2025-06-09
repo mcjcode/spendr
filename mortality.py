@@ -15,7 +15,7 @@ from collections import defaultdict
 def mortality_function_from_table(fn):
     with open(fn,'rb') as fp:
         line = fp.readline()
-        while not line.startswith(b"Row\Column"):
+        while not line.startswith(b"Row\\Column"):
             line = fp.readline()
 
         h = defaultdict(lambda:1.0)

@@ -68,9 +68,9 @@ def const_spending_policy(amount):
             ins_cost = 0
         totassets = sum(assets_pretax) + sum(assets_posttax)
         #
-        # if there is only one person left, cost is 80% of two
+        # if there is only one person left, cost is 75% of two
         if len(ages) == 1:
-            amount2 = 0.80 * amount
+            amount2 = 0.75 * amount
         else:
             amount2 = amount
         return min(totassets, amount2 + ins_cost)
